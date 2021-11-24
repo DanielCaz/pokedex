@@ -1,2 +1,29 @@
+@import "./vars";
+
 .container {
+  display: flex;
+  justify-content: center;
+
+  form {
+    margin-top: 3.5em;
+
+    input {
+      padding: 0.5em;
+      border: 1px solid lightgray;
+      font-size: 1.1em;
+      margin: 0 0.5em;
+      min-width: 15em;
+    }
+
+    button {
+      background-color: $terciaryColorDark;
+      color: white;
+      border: unset;
+      padding: 0.5em;
+      border-radius: 5px;
+      font-size: 0.9em;
+      margin: 0 0.5em;
+      cursor: pointer;
+    }
+  }
 }
