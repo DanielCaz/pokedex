@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { GetStaticPropsContext } from "next";
 import Image from "next/image";
 import styles from "../../../styles/Pokemon.module.scss";
+import { useRouter } from "next/router";
 
 const Pokemon = ({
   response,
@@ -9,12 +10,19 @@ const Pokemon = ({
   pokeTypes,
   pokeName,
   pokeSprite,
+  pokeProfile,
 }: {
   response: string;
   pokeStats: { base_stat: number; stat: { name: string } }[];
   pokeTypes: { slot: number; type: { name: string } }[];
   pokeName: string;
   pokeSprite: string;
+  pokeProfile: {
+    base_xp: number;
+    height: number;
+    weight: number;
+    abilities: { ability: { name: string } }[];
+  };
 }) => {
   type styleType = {
     id: string;
@@ -27,154 +35,158 @@ const Pokemon = ({
     Dispatch<SetStateAction<styleType[]>>
   ] = useState([]);
 
+  const router = useRouter();
+
   useEffect(() => {
-    let temp: styleType[] = [];
-    pokeTypes.map((element) => {
-      const name = element.type.name;
-      switch (name) {
-        case "normal":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "gray",
-            color: "white",
-          });
-          break;
-        case "fighting":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "red",
-            color: "white",
-          });
-          break;
-        case "flying":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "skyblue",
-            color: "black",
-          });
-          break;
-        case "poison":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "purple",
-            color: "white",
-          });
-          break;
-        case "ground":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "sandybrown",
-            color: "white",
-          });
-          break;
-        case "rock":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "dimgray",
-            color: "white",
-          });
-          break;
-        case "bug":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "limegreen",
-            color: "white",
-          });
-          break;
-        case "ghost":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "lightgray",
-            color: "black",
-          });
-          break;
-        case "steel":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "lightslategray",
-            color: "white",
-          });
-          break;
-        case "fire":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "orangered",
-            color: "white",
-          });
-          break;
-        case "water":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "royalblue",
-            color: "white",
-          });
-          break;
-        case "grass":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "green",
-            color: "white",
-          });
-          break;
-        case "electric":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "yellow",
-            color: "black",
-          });
-          break;
-        case "psychic":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "plum",
-            color: "white",
-          });
-          break;
-        case "ice":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "deepskyblue",
-            color: "white",
-          });
-          break;
-        case "dragon":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "blueviolet",
-            color: "white",
-          });
-          break;
-        case "dark":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "black",
-            color: "white",
-          });
-          break;
-        case "fairy":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "hotpink",
-            color: "white",
-          });
-          break;
-        case "unknown":
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "darkred",
-            color: "white",
-          });
-          break;
-        default:
-          temp = temp.concat({
-            id: name,
-            backgroundColor: "darkgray",
-            color: "white",
-          });
-      }
-      setMainStyles(temp);
-    });
-  }, [pokeTypes]);
+    if (response === "Ok") {
+      let temp: styleType[] = [];
+      pokeTypes.map((element) => {
+        const name = element.type.name;
+        switch (name) {
+          case "normal":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "gray",
+              color: "white",
+            });
+            break;
+          case "fighting":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "red",
+              color: "white",
+            });
+            break;
+          case "flying":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "skyblue",
+              color: "black",
+            });
+            break;
+          case "poison":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "purple",
+              color: "white",
+            });
+            break;
+          case "ground":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "sandybrown",
+              color: "white",
+            });
+            break;
+          case "rock":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "dimgray",
+              color: "white",
+            });
+            break;
+          case "bug":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "limegreen",
+              color: "white",
+            });
+            break;
+          case "ghost":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "lightgray",
+              color: "black",
+            });
+            break;
+          case "steel":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "lightslategray",
+              color: "white",
+            });
+            break;
+          case "fire":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "orangered",
+              color: "white",
+            });
+            break;
+          case "water":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "royalblue",
+              color: "white",
+            });
+            break;
+          case "grass":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "green",
+              color: "white",
+            });
+            break;
+          case "electric":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "yellow",
+              color: "black",
+            });
+            break;
+          case "psychic":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "plum",
+              color: "white",
+            });
+            break;
+          case "ice":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "deepskyblue",
+              color: "white",
+            });
+            break;
+          case "dragon":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "blueviolet",
+              color: "white",
+            });
+            break;
+          case "dark":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "black",
+              color: "white",
+            });
+            break;
+          case "fairy":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "hotpink",
+              color: "white",
+            });
+            break;
+          case "unknown":
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "darkred",
+              color: "white",
+            });
+            break;
+          default:
+            temp = temp.concat({
+              id: name,
+              backgroundColor: "darkgray",
+              color: "white",
+            });
+        }
+        setMainStyles(temp);
+      });
+    }
+  }, [pokeTypes, response]);
 
   const smoothExponentially = (value: number, max: number): number => {
     var a = -max / Math.pow(max, 2);
@@ -187,12 +199,39 @@ const Pokemon = ({
     return smoothedValue / maxStat;
   };
 
+  const getAbilities = (): string => {
+    let res = "";
+    pokeProfile.abilities.forEach((ability) => {
+      let temp = ability.ability.name;
+      if (temp.includes("-")) temp = temp.replace("-", " ");
+      res += `${temp}, `;
+    });
+    res = res.substr(0, res.length - 2);
+    return res;
+  };
+
   return (
-    <div className={styles.container}>
-      {response != "Error" ? (
+    <div
+      className={styles.container}
+      style={
+        mainStyles.length > 0
+          ? {
+              backgroundColor: mainStyles[0].backgroundColor,
+            }
+          : {}
+      }
+    >
+      {response === "Ok" ? (
         <div className={styles.card}>
           <h2>{pokeName}</h2>
-          <Image width="150px" height="150px" src={pokeSprite} alt="Sprite" />
+          <Image
+            priority
+            width="150px"
+            height="150px"
+            src={pokeSprite}
+            alt="Sprite"
+          />
+          <hr />
           <div className={styles.typeInfo}>
             {mainStyles.length > 0 &&
               mainStyles.map((style) => {
@@ -209,13 +248,18 @@ const Pokemon = ({
                 );
               })}
           </div>
+          <hr />
           <div className={styles.stats}>
             <table>
               <tbody>
                 {pokeStats.map((stat) => {
                   return (
                     <tr key={stat.stat.name}>
-                      <th scope="row">{stat.stat.name.replaceAll("-", " ")}</th>
+                      <th scope="row">
+                        {stat.stat.name.includes("-")
+                          ? stat.stat.name.replace("-", " ")
+                          : stat.stat.name}
+                      </th>
                       <td>
                         <div>
                           {mainStyles.length > 0 && (
@@ -241,10 +285,40 @@ const Pokemon = ({
               </tbody>
             </table>
           </div>
+          <hr />
+          {pokeProfile && (
+            <div className={styles.profile}>
+              <div>
+                <p>
+                  <b>Height:</b> {pokeProfile.height}
+                </p>
+                <p>
+                  <b>Weight:</b> {pokeProfile.weight}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <b>Base Xp:</b> {pokeProfile.base_xp}
+                </p>
+                <p>
+                  <b>Abilities:</b> {getAbilities()}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
-        <h2>Pokemon not found</h2>
+        <>
+          <h2>Error {response}</h2>
+        </>
       )}
+      <button
+        onClick={() => {
+          router.replace("/");
+        }}
+      >
+        Go Back
+      </button>
     </div>
   );
 };
@@ -252,8 +326,27 @@ const Pokemon = ({
 export const getServerSideProps = async (context: GetStaticPropsContext) => {
   try {
     const res = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${context.params.name}`
+      `https://pokeapi.co/api/v2/pokemon/${context.params.name
+        .toString()
+        .toLowerCase()}`
     );
+
+    if (res.status === 404) {
+      return {
+        props: {
+          response: "404: pokemon not found",
+        },
+      };
+    }
+
+    if (res.status === 500) {
+      return {
+        props: {
+          response: "500: Internal server error",
+        },
+      };
+    }
+
     const data = await res.json();
 
     return {
@@ -263,6 +356,12 @@ export const getServerSideProps = async (context: GetStaticPropsContext) => {
         pokeTypes: data.types,
         pokeName: data.name,
         pokeSprite: data.sprites.other.dream_world.front_default,
+        pokeProfile: {
+          base_xp: data.base_experience,
+          height: data.height,
+          weight: data.weight,
+          abilities: data.abilities,
+        },
       },
     };
   } catch (e) {
