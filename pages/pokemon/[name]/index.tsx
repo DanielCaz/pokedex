@@ -1,19 +1,246 @@
-import React from "react";
-import { useRouter } from "next/router";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { GetStaticPropsContext } from "next";
 import Image from "next/image";
 import styles from "../../../styles/Pokemon.module.scss";
 
-const Pokemon = ({ pokemonData }) => {
+const Pokemon = ({
+  response,
+  pokeStats,
+  pokeTypes,
+  pokeName,
+  pokeSprite,
+}: {
+  response: string;
+  pokeStats: { base_stat: number; stat: { name: string } }[];
+  pokeTypes: { slot: number; type: { name: string } }[];
+  pokeName: string;
+  pokeSprite: string;
+}) => {
+  type styleType = {
+    id: string;
+    backgroundColor: string;
+    color: string;
+  };
+
+  const [mainStyles, setMainStyles]: [
+    styleType[],
+    Dispatch<SetStateAction<styleType[]>>
+  ] = useState([]);
+
+  useEffect(() => {
+    let temp: styleType[] = [];
+    pokeTypes.map((element) => {
+      const name = element.type.name;
+      switch (name) {
+        case "normal":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "gray",
+            color: "white",
+          });
+          break;
+        case "fighting":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "red",
+            color: "white",
+          });
+          break;
+        case "flying":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "skyblue",
+            color: "black",
+          });
+          break;
+        case "poison":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "purple",
+            color: "white",
+          });
+          break;
+        case "ground":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "sandybrown",
+            color: "white",
+          });
+          break;
+        case "rock":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "dimgray",
+            color: "white",
+          });
+          break;
+        case "bug":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "limegreen",
+            color: "white",
+          });
+          break;
+        case "ghost":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "lightgray",
+            color: "black",
+          });
+          break;
+        case "steel":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "lightslategray",
+            color: "white",
+          });
+          break;
+        case "fire":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "orangered",
+            color: "white",
+          });
+          break;
+        case "water":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "royalblue",
+            color: "white",
+          });
+          break;
+        case "grass":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "green",
+            color: "white",
+          });
+          break;
+        case "electric":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "yellow",
+            color: "black",
+          });
+          break;
+        case "psychic":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "plum",
+            color: "white",
+          });
+          break;
+        case "ice":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "deepskyblue",
+            color: "white",
+          });
+          break;
+        case "dragon":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "blueviolet",
+            color: "white",
+          });
+          break;
+        case "dark":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "black",
+            color: "white",
+          });
+          break;
+        case "fairy":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "hotpink",
+            color: "white",
+          });
+          break;
+        case "unknown":
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "darkred",
+            color: "white",
+          });
+          break;
+        default:
+          temp = temp.concat({
+            id: name,
+            backgroundColor: "darkgray",
+            color: "white",
+          });
+      }
+      setMainStyles(temp);
+    });
+  }, [pokeTypes]);
+
+  const smoothExponentially = (value: number, max: number): number => {
+    var a = -max / Math.pow(max, 2);
+    return a * Math.pow(value - max, 2) + max;
+  };
+
+  const getStatDisplayRatio = (statValue: number): number => {
+    var maxStat = 255;
+    var smoothedValue = smoothExponentially(statValue, maxStat);
+    return smoothedValue / maxStat;
+  };
+
   return (
     <div className={styles.container}>
-      {pokemonData != "Error" ? (
+      {response != "Error" ? (
         <div className={styles.card}>
-          <Image
-            width="150px"
-            height="150px"
-            src={pokemonData.sprites.front_default}
-          />
+          <h2>{pokeName}</h2>
+          <Image width="150px" height="150px" src={pokeSprite} alt="Sprite" />
+          <div className={styles.typeInfo}>
+            {mainStyles.length > 0 &&
+              mainStyles.map((style) => {
+                return (
+                  <p
+                    key={style.id}
+                    style={{
+                      backgroundColor: style.backgroundColor,
+                      color: style.color,
+                    }}
+                  >
+                    <b>{style.id}</b>
+                  </p>
+                );
+              })}
+          </div>
+          <div className={styles.stats}>
+            <table>
+              <tbody>
+                {pokeStats.map((stat) => {
+                  return (
+                    <tr key={stat.stat.name}>
+                      <th scope="row">{stat.stat.name.replaceAll("-", " ")}</th>
+                      <td>
+                        <div>
+                          {mainStyles.length > 0 && (
+                            <div
+                              style={{
+                                backgroundColor: mainStyles[0].backgroundColor,
+                                width: `${
+                                  getStatDisplayRatio(stat.base_stat) * 100
+                                }%`,
+                                color: `${mainStyles[0].color}`,
+                              }}
+                            >
+                              <span>
+                                <b>{stat.base_stat}</b>
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       ) : (
         <h2>Pokemon not found</h2>
@@ -27,17 +254,21 @@ export const getServerSideProps = async (context: GetStaticPropsContext) => {
     const res = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${context.params.name}`
     );
-    const pokemonData = await res.json();
+    const data = await res.json();
 
     return {
       props: {
-        pokemonData,
+        response: "Ok",
+        pokeStats: data.stats,
+        pokeTypes: data.types,
+        pokeName: data.name,
+        pokeSprite: data.sprites.other.dream_world.front_default,
       },
     };
   } catch (e) {
     return {
       props: {
-        pokemonData: "Error",
+        response: "Error",
       },
     };
   }

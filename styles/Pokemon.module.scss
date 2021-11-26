@@ -1,3 +1,5 @@
+@import "./vars";
+
 .container {
   display: flex;
   justify-content: center;
@@ -7,4 +9,63 @@
 
 .card {
   border: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em 1.5em;
+  max-width: 500px;
+
+  h2 {
+    text-transform: capitalize;
+    text-align: center;
+  }
+
+  table {
+    column-gap: 10em;
+
+    tr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0.5em 0;
+    }
+
+    th {
+      margin-left: 1em;
+      text-transform: capitalize;
+    }
+
+    div {
+      border: 1px solid gray;
+      background-color: lightgray;
+      border-radius: 5px;
+      width: 15em;
+      height: 1.5em;
+      margin: 0 1em;
+
+      div {
+        margin: unset;
+        border: unset;
+        height: 100%;
+        border-right: 1px solid black;
+
+        span {
+          margin-left: 0.25em;
+        }
+      }
+    }
+  }
+}
+
+.typeInfo {
+  display: flex;
+  justify-content: space-around;
+
+  p {
+    text-transform: uppercase;
+    padding: 0.5em;
+    margin: 1.5em 1em;
+    border-radius: 5px;
+    color: white;
+  }
 }

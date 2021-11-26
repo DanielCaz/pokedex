@@ -11,7 +11,7 @@ export default function Home() {
 
     if (pokemon.trim().length == 0) return;
 
-    router.push(`pokemon/${pokemon}`);
+    router.push(`pokemon/${pokemon.toLowerCase().trim()}`);
   };
 
   return (
