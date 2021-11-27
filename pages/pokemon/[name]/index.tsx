@@ -211,23 +211,21 @@ const Pokemon = ({
   };
 
   return (
-    <div
-      className={styles.container}
-      style={
-        mainStyles.length > 0
-          ? {
-              backgroundColor: mainStyles[0].backgroundColor,
-            }
-          : {}
-      }
-    >
+    <div className={styles.container}>
+      {mainStyles.length > 0 && (
+        <style>
+          {"html {background-color: " + mainStyles[0].backgroundColor + "}"}
+        </style>
+      )}
       {response === "Ok" ? (
         <div className={styles.card}>
           <h2>{pokeName}</h2>
           <Image
             priority
-            width="150px"
-            height="150px"
+            width="150"
+            height="150"
+            layout="responsive"
+            unoptimized
             src={pokeSprite}
             alt="Sprite"
           />
@@ -355,7 +353,7 @@ export const getServerSideProps = async (context: GetStaticPropsContext) => {
         pokeStats: data.stats,
         pokeTypes: data.types,
         pokeName: data.name,
-        pokeSprite: data.sprites.other.dream_world.front_default,
+        pokeSprite: data.sprites.front_default,
         pokeProfile: {
           base_xp: data.base_experience,
           height: data.height,

@@ -6,7 +6,6 @@
   align-items: center;
   flex-direction: column;
   padding: 3em 2em;
-  height: 100vh;
 
   h2 {
     text-transform: capitalize;
@@ -55,7 +54,6 @@
       div {
         margin: unset;
         border: unset;
-        height: 100%;
         border-right: 1px solid black;
 
         span {
