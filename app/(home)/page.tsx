@@ -10,7 +10,7 @@ const HomePage = () => {
 
     const formData = new FormData(e.currentTarget);
 
-    const pokemon = formData.get("pokemon").toString();
+    const pokemon = formData.get("pokemon").toString().trim().toLowerCase();
 
     router.push(`/pokemon/${pokemon}`);
   };
