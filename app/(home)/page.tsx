@@ -1,25 +1,18 @@
-"use client";
-
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const HomePage = () => {
-  const router = useRouter();
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-
+  const handleSubmit = async (formData: FormData) => {
+    "use server";
     const pokemon = formData.get("pokemon").toString().trim().toLowerCase();
 
-    router.push(`/pokemon/${pokemon}`);
+    redirect(`/pokemon/${pokemon}`);
   };
 
   return (
     <main>
       <form
         className="container mx-auto mt-12 flex justify-center space-x-3"
-        onSubmit={handleSubmit}
+        action={handleSubmit}
       >
         <div className="grid">
           <label htmlFor="inputPokemon" className="text-gray-700">
