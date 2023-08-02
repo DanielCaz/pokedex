@@ -1,8 +1,5 @@
 {
   "name": "pokedex",
-  "engines": {
-    "node": ">=18.x"
-  },
   "private": true,
   "scripts": {
     "dev": "next dev",
