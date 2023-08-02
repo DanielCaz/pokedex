@@ -26,6 +26,9 @@ export default function Error({
         <strong>Stack:</strong>
         <br />
         <pre>{error.stack}</pre>
+        <strong>Digest:</strong>
+        <br />
+        <pre>{error.digest}</pre>
       </div>
     </div>
   );

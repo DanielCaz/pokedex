@@ -3,6 +3,8 @@ import { getPokemon } from "../../../lib/pokeapi";
 import Image from "next/image";
 import { getStatDisplayRatio } from "../../../lib/utils";
 import { PokemonTypeStyle } from "../../../interfaces/PokemonTypeStyle";
+import { notFound } from "next/navigation";
+import { Pokemon } from "../../../interfaces/pokemon";
 
 const PokedexPage = async ({
   params,
@@ -11,7 +13,12 @@ const PokedexPage = async ({
     pokemonName: string;
   };
 }) => {
-  const pokemon = await getPokemon(params.pokemonName.toLowerCase());
+  let pokemon: Pokemon;
+  try {
+    pokemon = await getPokemon(params.pokemonName.toLowerCase());
+  } catch (error) {
+    notFound();
+  }
 
   const typeStyles: PokemonTypeStyle[] = [
     {
