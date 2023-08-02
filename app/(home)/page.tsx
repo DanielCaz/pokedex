@@ -12,6 +12,7 @@ const HomePage = () => {
     <main>
       <form
         className="container mx-auto mt-12 flex justify-center space-x-3"
+        // @ts-ignore
         action={handleSubmit}
       >
         <div className="grid">
