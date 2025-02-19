@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  env: {
-    API_URL: process.env.API_URL,
-  },
   images: {
-    domains: ["raw.githubusercontent.com"],
-  },
-  experimental: {
-    serverActions: true,
+    // domains: ["raw.githubusercontent.com"],
+    remotePatterns: [
+      {
+        hostname: "raw.githubusercontent.com",
+        protocol: "https",
+      },
+    ],
   },
 };
 
