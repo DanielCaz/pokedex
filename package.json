@@ -11,16 +11,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "^14.2.24",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "next": "^15.1.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/node": "^16.11.9",
     "@types/react": "^17.0.36",
     "autoprefixer": "^10.4.14",
     "eslint": "7.32.0",
-    "eslint-config-next": "^14.2.24",
+    "eslint-config-next": "^15.1.7",
     "postcss": "^8.4.27",
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.4.1",

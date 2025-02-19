@@ -7,9 +7,9 @@ import { notFound } from "next/navigation";
 import { Pokemon } from "../../../interfaces/pokemon";
 
 type Props = {
-  params: {
+  params: Promise<{
     pokemonName: string;
-  };
+  }>;
 };
 
 const typeStyles: PokemonTypeStyle[] = [
@@ -124,9 +124,11 @@ const typeStyles: PokemonTypeStyle[] = [
 ];
 
 const PokedexPage = async ({ params }: Props) => {
+  const pokemonName = (await params).pokemonName.toLowerCase();
+
   let pokemon: Pokemon;
   try {
-    pokemon = await getPokemon(params.pokemonName.toLowerCase());
+    pokemon = await getPokemon(pokemonName);
   } catch (error) {
     notFound();
   }
