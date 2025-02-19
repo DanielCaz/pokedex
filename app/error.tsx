@@ -12,7 +12,7 @@ export default function Error({
       <div className="flex items-center justify-between">
         <h2 className="text-2xl">Something went wrong!</h2>
         <button
-          className="rounded bg-teal-500 px-4 py-2 text-white"
+          className="rounded-sm bg-teal-500 px-4 py-2 text-white"
           onClick={() => reset()}
         >
           Try again

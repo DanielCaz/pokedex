@@ -5,7 +5,7 @@ export default function NotFound() {
     <div className="mx-auto max-w-md p-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl">Not found!</h2>
-        <Link href="/" className="rounded bg-black px-2 py-1 text-white">
+        <Link href="/" className="rounded-sm bg-black px-2 py-1 text-white">
           Return Home
         </Link>
       </div>

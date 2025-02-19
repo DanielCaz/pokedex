@@ -10,7 +10,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
             <li>
               <Link
                 href="/"
-                className="rounded px-2 py-1 transition-colors duration-300 hover:bg-red-600"
+                className="rounded-sm px-2 py-1 transition-colors duration-300 hover:bg-red-600"
               >
                 Home
               </Link>
@@ -18,7 +18,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
             <li>
               <Link
                 href="/about"
-                className="rounded px-2 py-1 transition-colors duration-300 hover:bg-red-600"
+                className="rounded-sm px-2 py-1 transition-colors duration-300 hover:bg-red-600"
               >
                 About
               </Link>

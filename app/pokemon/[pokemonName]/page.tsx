@@ -159,7 +159,7 @@ const PokedexPage = async ({ params }: Props) => {
           } absolute bottom-0 left-1/2 right-0 top-0 -z-10`}
         ></div>
       }
-      <div className="mx-auto max-w-md rounded bg-white p-6 shadow-xl">
+      <div className="mx-auto max-w-md rounded-sm bg-white p-6 shadow-xl">
         <h2 className="text-center text-2xl font-bold capitalize">
           {pokemon.name}
         </h2>
@@ -197,7 +197,7 @@ const PokedexPage = async ({ params }: Props) => {
                 <div
                   className={`${
                     pokemonTypeStyles.length === 2
-                      ? `${pokemonTypeStyles[0].gradient.from} ${pokemonTypeStyles[1].gradient.to} bg-gradient-to-r`
+                      ? `${pokemonTypeStyles[0].gradient.from} ${pokemonTypeStyles[1].gradient.to} bg-linear-to-r`
                       : pokemonTypeStyles[0].color
                   } ${pokemonTypeStyles[0].textColor} border`}
                   style={{ width }}
@@ -233,7 +233,7 @@ const PokedexPage = async ({ params }: Props) => {
       </div>
       <Link
         href="/"
-        className="mx-auto mt-4 block w-max rounded bg-black p-2 text-white transition-colors duration-300 hover:bg-gray-900"
+        className="mx-auto mt-4 block w-max rounded-sm bg-black p-2 text-white transition-colors duration-300 hover:bg-gray-900"
       >
         Go Back
       </Link>
